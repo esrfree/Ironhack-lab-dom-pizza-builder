@@ -29,7 +29,7 @@ function renderEverything( ev ) {
   renderGlutenFreeCrust()
 
   renderButtons( ev )
-  renderPrice()
+  renderPrice( ev )
 }
 
 function renderPepperonni() {
@@ -78,9 +78,40 @@ function renderButtons( ev = {} ) {
   })
 }
 
-function renderPrice() {
+function renderPrice( ev = {}) {
   // Iteration 4: change the HTML of `<aside class="panel price">`
-}
+  let pep = {
+    HTML: `<li id="pep-price">$1 pepperonni</li>`,
+    price: 1,
+    present: true 
+  };
+  let mushPrice = {
+    HTML: `<li id="mush-price">$1 mushrooms</li>`,
+    price: 1
+  };
+  let gp = {
+    HTML: `<li id ="gp-price">$1 green peppers</li>`,
+    price: 1
+  };
+  let wsPrice = {
+    HTML: `<li id="ws-price">$3 white sauce</li>`,
+    price: 3
+  };
+  let gfcPrice = {
+    HTML: `<li id="gfc-price">$5 gluten-free crust</li>`,
+    price: 5
+  };
+
+  document.querySelectorAll('.panel.price>ul>li').forEach( el => {
+    if (!state.pepperonni && el.id == "pep-price" ) {
+      pep.present = !pep.present
+      el.parentNode.removeChild(el)
+    }
+    else if( !pep.present ) { 
+      el.parentElement.insertAdjacentHTML('afterbegin', pep.HTML )
+    }
+  })  
+  }
 
 
 renderEverything()
